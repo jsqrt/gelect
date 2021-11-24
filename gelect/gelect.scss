@@ -2,19 +2,22 @@
 $gelect-selector: 'gelect';
 
 :root {
-	--g-height: 4.8rem;
+	--g-height: 4rem;
 	--g-font-size: 1.8rem;
-	--g-border: .2rem solid aqua;
-	--g-indent: .4rem 3rem .4rem 2rem;
+	--g-border: .2rem solid gray;
+	--g-indent: .4rem 3.4rem .4rem 1.6rem;
+	--g-list-indent: .4rem 1.6rem;
 }
 
-.#{$gelect-class} {
+.#{$gelect-selector} {
 	position: relative;
 	user-select: none;
 }
 
-.#{$gelect-class}__selected {
+.#{$gelect-selector}__selected {
 	@extend %global_flex_block_row_wrap_flex-start_center;
+
+	position: relative;
 
 	height: var(--g-height);
 	padding: var(--g-indent);
@@ -28,11 +31,26 @@ $gelect-selector: 'gelect';
 	cursor: pointer;
 
 	&:focus {
-		background-color: gray;
+		border-color: rgba(#000, .6);
+	}
+
+	&::after {
+		position: absolute;
+		right: 1rem;
+		top: 50%;
+		transform: translateY(-50%);
+
+		display: block;
+		width: 1.2rem;
+		height: 1.2rem;
+
+		background: url('https://www.svgrepo.com/show/80156/down-arrow.svg') 0 0 / cover no-repeat;
+
+		content: '';
 	}
 }
 
-.#{$gelect-class}__options {
+.#{$gelect-selector}__options {
 	position: absolute;
 	top: 100%;
 	left: 0;
@@ -49,35 +67,41 @@ $gelect-selector: 'gelect';
 	}
 }
 
-.#{$gelect-class}__options__item {
+.#{$gelect-selector}__options__item {
 	width: 100%;
-	// &:not(:first-child) {
-	// 	border-top: var(--g-border);
-	// }
+	&:not([data-selected]) {
+		border-top: var(--g-border);
+	}
 
 	&[data-selected] {
 		order: -1;
 	}
 }
 
-.#{$gelect-class}__options__item__btn {
-	@extend %global_flex_block_row_wrap_flex-start_center;
-
+.#{$gelect-selector}__options__item__btn {
+	display: block;
 	width: 100%;
 	min-height: var(--g-height);
-	padding: var(--g-indent);
+	padding: var(--g-list-indent);
 
 	font-size: var(--g-font-size);
 	color: #000;
-	background-color: #fff;
 
+	text-align: left;
+	text-overflow: ellipsis; // optional *
+	white-space: nowrap; // optional *
+	overflow: hidden; // optional *
+
+	background-color: #fff;
 	cursor: pointer;
 
 	&:focus {
 		background-color: gray;
+		color: #fff;
 	}
 
-	.#{$gelect-class}__options__item[data-selected] & {
+	.#{$gelect-selector}__options__item[data-selected] & {
 		background-color: #bdbdbd;
+		color: rgba(black, .5);
 	}
 }
