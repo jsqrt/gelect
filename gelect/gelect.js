@@ -8,7 +8,6 @@ class gelect {
 
 		this.settings = {
 			class: this.$component.classList[0],
-			icon: true,
 			placeholder: this.$component.dataset.placeholder,
 			ariaMessage: this.$component.dataset.ariaMessage,
 			ariaLabel: this.$component.getAttribute('aria-label'),
@@ -98,7 +97,6 @@ class gelect {
 			this.setSelected(this.$firstOption);
 		}
 		else {
-			// вариант может быть есть задан в js индекс опции
 		}
 	}
 
@@ -121,6 +119,7 @@ class gelect {
 
 	dropdownClose() {
 		this.$options.removeAttribute('data-state');
+		console.log('dropdownClose()');
 	}
 
 	onHandleChange(e) {
@@ -133,7 +132,8 @@ class gelect {
 
 	onHandleTriggerClick() {
 		this.$trigger.addEventListener('click', (e) => {
-			if (this.$options.dataset.active === 'true') {
+			console.log('click');
+			if (this.$options.dataset.state === 'active') {
 				this.dropdownClose();
 			} else {
 				this.dropdownOpen();
@@ -157,25 +157,3 @@ class gelect {
 		this.onHandleOutsideClick();
 	}
 }
-
-// -------- Usage
-
-new gelect('select', {
-	// placeholder: 'Плейсхолдер JS'
-});
-
-// -------- ###
-
-// первым должен быть класс компонента, а потом уже моды
-
-/*	TODO:
-		1. Добавление иконки к селекту
-		3. Добавить переменную для css с классом
-		4. Разобраться с атрибутами
-		5. Мейби переделать forEach на map
-		6. проверка если нету класснейма
-		7. Адаптация для форм
-*/
-
-
-
