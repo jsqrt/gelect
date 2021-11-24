@@ -1,0 +1,107 @@
+
+$gelect-selector: 'gelect';
+
+:root {
+	--g-height: 4rem;
+	--g-font-size: 1.8rem;
+	--g-border: .2rem solid gray;
+	--g-indent: .4rem 3.4rem .4rem 1.6rem;
+	--g-list-indent: .4rem 1.6rem;
+}
+
+.#{$gelect-selector} {
+	position: relative;
+	user-select: none;
+}
+
+.#{$gelect-selector}__selected {
+	@extend %global_flex_block_row_wrap_flex-start_center;
+
+	position: relative;
+
+	height: var(--g-height);
+	padding: var(--g-indent);
+
+	color: #000;
+	font-size: var(--g-font-size);
+
+	border: var(--g-border);
+	background-color: #fff;
+
+	cursor: pointer;
+
+	&:focus {
+		border-color: rgba(#000, .6);
+	}
+
+	&::after {
+		position: absolute;
+		right: 1rem;
+		top: 50%;
+		transform: translateY(-50%);
+
+		display: block;
+		width: 1.2rem;
+		height: 1.2rem;
+
+		background: url('https://www.svgrepo.com/show/80156/down-arrow.svg') 0 0 / cover no-repeat;
+
+		content: '';
+	}
+}
+
+.#{$gelect-selector}__options {
+	position: absolute;
+	top: 100%;
+	left: 0;
+
+	display: none;
+	width: 100%;
+
+	border: var(--g-border);
+	border-top: 0;
+
+	&[data-state='active'] {
+		display: flex;
+		flex-wrap: wrap;
+	}
+}
+
+.#{$gelect-selector}__options__item {
+	width: 100%;
+	&:not([data-selected]) {
+		border-top: var(--g-border);
+	}
+
+	&[data-selected] {
+		order: -1;
+	}
+}
+
+.#{$gelect-selector}__options__item__btn {
+	display: block;
+	width: 100%;
+	min-height: var(--g-height);
+	padding: var(--g-list-indent);
+
+	font-size: var(--g-font-size);
+	color: #000;
+
+	text-align: left;
+	text-overflow: ellipsis; // optional *
+	white-space: nowrap; // optional *
+	overflow: hidden; // optional *
+
+	background-color: #fff;
+	cursor: pointer;
+
+	&:focus {
+		background-color: gray;
+		color: #fff;
+	}
+
+	.#{$gelect-selector}__options__item[data-selected] & {
+		background-color: #bdbdbd;
+		color: rgba(black, .5);
+	}
+}
