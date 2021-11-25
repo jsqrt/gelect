@@ -3,8 +3,6 @@
 A vanilla, lightweight (5kb), configurable select plugin.
 
 
-## Usage:
-
 ## HTML:
 **Note:** You can add any additional class or attribute to `<select>` or `<option>`
 
@@ -48,7 +46,7 @@ const mySelect = new gelect('.your-element', {
 ```
 
 
-Accessebility
+## Accessebility:
 For full accessebility - add to `<select>`:
  - `aria-label='*'` // *name of select, default value equals placeholder;
  - `data-aria-message='*'` // *message when option selected;
