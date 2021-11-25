@@ -52,9 +52,9 @@ For full accessebility - add to `<select>`:
  - `data-aria-message='*'` // *message when option selected;
  example:
   ```html
-  <select aria-label='Select country' data-aria-message='Country selected:'>
-    <option>USA</option>
-    <option>Russia</option>
+  <select aria-label='Select language' data-aria-message='Language selected:'>
+    <option>English</option>
+    <option>Russian</option>
   </select>
-  if we select Russian, output: 'Country selected: Russia'
+  if we select Russian, output: 'Language selected: Russian'
   ```
