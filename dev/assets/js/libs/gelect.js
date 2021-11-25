@@ -37,6 +37,7 @@ class gelect {
 			this.$wrapper.setAttribute('aria-label', this.settings.placeholder);
 		}
 		this.$wrapper.setAttribute('role', 'listbox');
+		this.$wrapper.classList.add(this.settings.class);
 
 		this.$trigger = document.createElement('button');
 		this.$trigger.classList.add(this.settings.class + '__selected');
@@ -129,23 +130,42 @@ class gelect {
 	}
 
 	dropdownOpen() {
+		if (this.settings.onOpen) {
+			this.settings.onOpen();
+		}
+
 		this.$options.dataset.state = 'active';
 	}
 
 	dropdownClose() {
+		if (this.settings.onClose) {
+			this.settings.onClose();
+		}
+
 		this.$options.removeAttribute('data-state');
 	}
 
 	onHandleChange(e) {
+		if (this.settings.beforeChange) {
+			this.settings.beforeChange();
+		}
+
 		this.toggleSelected(e);
 		this.$trigger.textContent = e.target.textContent;
 
 		this.setTriggerAria();
 		this.$trigger.focus();
+
+		if (this.settings.afterChange) {
+			this.settings.afterChange();
+		}
 	}
 
 	onHandleTriggerClick() {
 		this.$trigger.addEventListener('click', (e) => {
+			if (this.settings.onClick) {
+				this.settings.onClick();
+			}
 			if (this.$options.dataset.state === 'active') {
 				this.dropdownClose();
 			} else {
@@ -163,6 +183,9 @@ class gelect {
 	}
 
 	init() {
+		if (this.settings.onInit) {
+			this.settings.onInit();
+		}
 		this.setNodes();
 		this.setOptions();
 		this.defineDefaultStates();

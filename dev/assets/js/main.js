@@ -17,7 +17,24 @@ $(document).ready(function ($) {
 	}
 
 	const mySelect = new gelect('select', {
-
+		onInit: () => {
+			console.log('init');
+		},
+		beforeChange: () => {
+			console.log('before');
+		},
+		afterChange: () => {
+			console.log('after');
+		},
+		onClick: () => {
+			console.log('click');
+		},
+		onOpen: () => {
+			console.log('Open');
+		},
+		onClose: () => {
+			console.log('Close');
+		},
 	});
 });
 
