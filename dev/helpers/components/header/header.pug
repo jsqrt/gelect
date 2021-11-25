@@ -1,0 +1,18 @@
+header.header
+	.header_main_row
+		h1.logo_wrap.header_mod
+			a(href="#").logo_text.header_mod Site logo
+		.menu_trigger.menuTrigger
+			span.menu_trigger_decor
+		nav.header_menu
+			+menu({
+				gl_class: 'header_menu',
+				items: [
+					{title: 'Menu link #1', url: 'http://www.google.com', active: true},
+					{title: 'Menu link #2', active: false},
+					{title: 'Menu link #3', active: false}
+				]
+			})
+	// sidebars
+	.main_sidebar
+	.user_sidebar

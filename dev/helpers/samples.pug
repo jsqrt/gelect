@@ -1,0 +1,29 @@
+//- Examples of use pug mixins
+//----------------------------
+
+//- mixin menu()
++menu({
+	gl_class: 'main_menu',
+	items: [
+		{title: 'Menu link #1', url: 'http://www.google.com', active: true},
+		{title: 'Menu link #2', active: false},
+		{title: 'Menu link #3', active: false}
+	]
+})
+
+//- mixin social()
++social({
+	mod_block: 'header_mod',
+	items: [
+		{mod_link: 'some_mod', name_icon: 'check', mod_icon: 'some_mod'},
+		{mod_link: 'some_mod', name_icon: 'check', mod_icon: 'some_mod'}
+	]
+})
+
+//- mixin pagination()
++pagination({
+	active: 3,
+	arrows: true,
+	pages: 6,
+	mod: 'its_mod'
+})
