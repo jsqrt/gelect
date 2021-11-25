@@ -3,9 +3,11 @@
 A vanilla, lightweight (5kb), configurable select plugin.
 
 
-Example:
+## Usage:
 
 HTML:
+**Note:** You can add any additional class or attribute to `<select>` or `<option>`
+
 ```html
 <select class="your-element">
   <option>Option 1</option>
@@ -15,9 +17,9 @@ HTML:
   <option>Option 5</option>
 </select>
 ```
-You can add any additional class or attribute to `<select>` or `<option>`
 
 First option default selected.
+
 To select a specific option - add `data-selected='true'` to `<option>`
 If you need add placeholder - add `data-placeholder='Placeholder'` to `<select>`
 
