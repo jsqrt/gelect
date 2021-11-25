@@ -20,7 +20,7 @@ HTML:
 
 First option default selected.
 
-To select a specific option - add `data-selected='true'` to `<option>`
+To select a specific option - add `data-selected='true'` to `<option>`.
 If you need add placeholder - add `data-placeholder='Placeholder'` to `<select>`
 
 JS:
