@@ -1,5 +1,7 @@
 # gelect
 
+A vanilla, lightweight (5kb), configurable select plugin.
+
 
 Example:
 
@@ -19,10 +21,10 @@ To select a specific option - add data-selected='true' to <option>
 If you need add placeholder - add data-placeholder='Placeholder' to <select>
 
 JS:
-
+```js
 const mySelect = new gelect('.your-element');
 
-to setting:
+// to setting:
 const mySelect = new gelect('.your-element', {
   class: string, // default 'gelect' or classList[0] of your select if defined
 
@@ -32,14 +34,14 @@ const mySelect = new gelect('.your-element', {
   ariaLabel: string,
 
   // callBacks
-  onInit: function,
-  onClick: function,
-  onOpen: function,
-  onClose: function,
-  beforeChange: function,
-  afterChange: function,
+  onInit: () => {},
+  onClick: () => {},
+  onOpen: () => {},
+  onClose: () => {},
+  beforeChange: () => {},
+  afterChange: () => {},
 });
-
+```
 
 
 Accessebility
