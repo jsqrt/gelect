@@ -70,9 +70,6 @@ $gelect-selector: 'gelect';
 
 .#{$gelect-selector}__options__item {
 	width: 100%;
-	&:not([data-selected]) {
-		border-top: var(--g-border);
-	}
 
 	&[data-selected] {
 		order: -1;
@@ -104,5 +101,9 @@ $gelect-selector: 'gelect';
 	.#{$gelect-selector}__options__item[data-selected] & {
 		background-color: #bdbdbd;
 		color: rgba(black, .5);
+	}
+
+	.#{$gelect-selector}__options__item:not([data-selected]):not(:first-child) &{
+		border-top: var(--g-border);
 	}
 }
