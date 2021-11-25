@@ -5,7 +5,7 @@ A vanilla, lightweight (5kb), configurable select plugin.
 
 ## Usage:
 
-**HTML:**
+## HTML:
 **Note:** You can add any additional class or attribute to `<select>` or `<option>`
 
 ```html
@@ -24,7 +24,7 @@ To select a specific option - add `data-selected='true'` to `<option>`.
 
 If you need add placeholder - add `data-placeholder='Placeholder'` to `<select>`
 
-**JS:**
+## JS:
 ```js
 const mySelect = new gelect('.your-element');
 
