@@ -1,25 +1,52 @@
-class gelect {
+class Gelect {
 
-	constructor(compEl, userSettings) {
-		this.$component = document.querySelector(compEl);
-		this.$root = this.$component.parentElement;
-		this.$defaultOptions = this.$component.querySelectorAll('option');
+	get CLASSNAMES() {
+		this.wrapper = 'gelect';
+		this.hiddenSelect = 'gelect_hidden';
+		this.trigger = this.wrapper + '__selected';
+		this.list = this.wrapper + '__options'
+		this.listItem = this.list + '__item';
+		this.option = this.listItem + '__btn';
 
-		this.settings = {
-			class: this.$component.classList[0] || 'gelect',
-			placeholder: this.$component.dataset.placeholder,
-			ariaMessage: this.$component.dataset.ariaMessage,
-			ariaLabel: this.$component.getAttribute('aria-label'),
-			beforeChange: null,
-			afterChange: null,
-			onClick: null,
-			onOpen: null,
-			onClose: null,
-			onInit: null,
-		};
-		Object.assign(this.settings, userSettings);
+		return this;
+	}
 
-		this.init();
+	constructor($select, userSettings) {
+		this.$defaultSelect = $select;
+
+		if (this.$defaultSelect && this.$defaultSelect.tagName === 'SELECT') {
+			this.$root = this.$defaultSelect.parentElement;
+			this.$defaultOptions = this.$defaultSelect.querySelectorAll('option');
+
+			this.isDropdownActive = false;
+			this.settings = {
+				class: this.$defaultSelect.classList[0] || this.CLASSNAMES.wrapper,
+				placeholder: this.$defaultSelect.dataset.placeholder,
+				ariaMessage: this.$defaultSelect.dataset.ariaMessage,
+				ariaLabel: this.$defaultSelect.getAttribute('aria-label'),
+				beforeChange: null,
+				afterChange: null,
+				onClick: null,
+				onOpen: null,
+				onClose: null,
+				onInit: null,
+			};
+			Object.assign(this.settings, userSettings);
+
+			this.init();
+		}
+	}
+
+	init() {
+		if (this.settings.onInit) {
+			this.settings.onInit();
+		}
+
+		this.defineNodes();
+		this.defineHiddenSelect();
+		this.defineOptions();
+		this.defineDefaultStates();
+		this.onHandleTriggerClick();
 	}
 
 	copyAttributes($source, $target) {
@@ -30,41 +57,52 @@ class gelect {
 		}
 	}
 
-	setNodes() {
+	defineNodes() {
 		this.$wrapper = document.createElement('div');
-		this.copyAttributes(this.$component, this.$wrapper);
+		this.$trigger = document.createElement('button');
+		if (this.$defaultOptions) {
+			this.$list = document.createElement('ul');
+			this.$list.classList.add(this.CLASSNAMES.list);
+		}
+
+		this.$wrapper.classList.add(this.settings.class);
+		this.$trigger.classList.add(this.CLASSNAMES.trigger);
+
+		this.copyAttributes(this.$defaultSelect, this.$wrapper);
 		if (!this.settings.ariaLabel) {
 			this.$wrapper.setAttribute('aria-label', this.settings.placeholder);
 		}
 		this.$wrapper.setAttribute('role', 'listbox');
-		this.$wrapper.classList.add(this.settings.class);
 
-		this.$trigger = document.createElement('button');
-		this.$trigger.classList.add(this.settings.class + '__selected');
 		this.$trigger.setAttribute('type', 'button');;
 		this.$trigger.setAttribute('role', 'status');
 		this.$trigger.setAttribute('aria-live', 'polite');
 
-		if (this.$defaultOptions) {
-			this.$options = document.createElement('ul');
-			this.$options.classList.add(this.settings.class + '__options');
-		}
-
 		this.$wrapper.append(this.$trigger);
-		this.$wrapper.append(this.$options);
+		this.$wrapper.append(this.$list);
 		this.$root.append(this.$wrapper);
+		this.$defaultSelect.remove(); // remove old select
 	}
 
-	setOptions() {
+	defineHiddenSelect() {
+		this.$hiddenSelect = document.createElement('select');
+		this.$hiddenSelect.classList.add(this.CLASSNAMES.hiddenSelect);
+		this.$hiddenOption = document.createElement('option');
+
+		this.$hiddenSelect.append(this.$hiddenOption);
+		this.$root.prepend(this.$hiddenSelect);
+	}
+
+	defineOptions() {
 		if (this.$defaultOptions) {
 			this.$defaultOptions.forEach((el, i) => {
-				let $optionsItem = document.createElement('li');
+				let $listItem = document.createElement('li');
 				let $button = document.createElement('button');
 
-				$optionsItem.classList.add(this.settings.class + '__options__item');
+				$listItem.classList.add(this.CLASSNAMES.listItem);
 				this.copyAttributes(el, $button);
 				$button.removeAttribute('data-selected');
-				$button.classList.add(this.settings.class + '__options__item__btn');
+				$button.classList.add(this.CLASSNAMES.option);
 				$button.textContent = el.textContent;
 				$button.setAttribute('role', 'option');
 				$button.setAttribute('aria-selected', 'false');
@@ -74,8 +112,8 @@ class gelect {
 					this.dropdownClose();
 				});
 
-				$optionsItem.append($button);
-				this.$options.append($optionsItem);
+				$listItem.append($button);
+				this.$list.append($listItem);
 
 				if (el.dataset.selected && !this.settings.$selectedOption && !this.settings.placeholder) {
 					this.setSelected($button);
@@ -93,48 +131,47 @@ class gelect {
 		}
 	}
 
-	setSelected($button) {
-		this.settings.$selectedOption = $button;
-		this.settings.$selectedOption.parentElement.dataset.selected = 'true';
-		this.settings.$selectedOption.setAttribute('tabindex', '-1');
-		this.settings.$selectedOption.setAttribute('aria-selected', 'true')
-
-		this.$trigger.textContent = this.settings.$selectedOption.textContent;
-
-		this.setTriggerAria();
+	setValue(value) {
+		this.$trigger.textContent = value;
 	}
 
-	defineDefaultStates() {
-		if (this.settings.placeholder) {
-			this.$trigger.textContent = this.settings.placeholder;
-		}
-		else if (!this.settings.$selectedOption) {
-			this.settings.$selectedOption = this.$firstOption;
-			this.setSelected(this.$firstOption);
-		}
-		else {
-		}
-	}
-
-	toggleSelected(e) {
+	setSelected($target) {
 		if (this.settings.$selectedOption) {
 			this.settings.$selectedOption.parentElement.removeAttribute('data-selected');
 			this.settings.$selectedOption.removeAttribute('tabindex');
 			this.settings.$selectedOption.setAttribute('aria-selected', 'false')
 		}
 
-		this.settings.$selectedOption = e.target;
+		this.settings.$selectedOption = $target;
 		this.settings.$selectedOption.parentElement.dataset.selected = 'true';
 		this.settings.$selectedOption.setAttribute('tabindex', '-1');
 		this.settings.$selectedOption.setAttribute('aria-selected', 'true')
+
+		this.$hiddenOption.textContent = this.settings.$selectedOption.textContent;
+		this.$hiddenOption.setAttribute('value', this.settings.$selectedOption.textContent);
+
+		this.setValue(this.settings.$selectedOption.textContent);
+		this.setTriggerAria();
+	}
+
+	defineDefaultStates() {
+		if (this.settings.placeholder) {
+			this.setValue(this.settings.placeholder);
+		}
+		else if (!this.settings.$selectedOption) {
+			this.settings.$selectedOption = this.$firstOption;
+			this.setSelected(this.$firstOption);
+		}
 	}
 
 	dropdownOpen() {
 		if (this.settings.onOpen) {
 			this.settings.onOpen();
 		}
+		this.isDropdownActive = true;
+		this.$wrapper.dataset.state = 'active';
 
-		this.$options.dataset.state = 'active';
+		window.addEventListener('click', this.onHandleOutsideClick);
 	}
 
 	dropdownClose() {
@@ -142,7 +179,10 @@ class gelect {
 			this.settings.onClose();
 		}
 
-		this.$options.removeAttribute('data-state');
+		this.isDropdownActive = false;
+		this.$wrapper.removeAttribute('data-state');
+
+		window.removeEventListener('click', this.onHandleOutsideClick);
 	}
 
 	onHandleChange(e) {
@@ -150,10 +190,7 @@ class gelect {
 			this.settings.beforeChange();
 		}
 
-		this.toggleSelected(e);
-		this.$trigger.textContent = e.target.textContent;
-
-		this.setTriggerAria();
+		this.setSelected(e.target);
 		this.$trigger.focus();
 
 		if (this.settings.afterChange) {
@@ -162,11 +199,11 @@ class gelect {
 	}
 
 	onHandleTriggerClick() {
-		this.$trigger.addEventListener('click', (e) => {
+		this.$trigger.addEventListener('click', () => {
 			if (this.settings.onClick) {
 				this.settings.onClick();
 			}
-			if (this.$options.dataset.state === 'active') {
+			if (this.isDropdownActive) {
 				this.dropdownClose();
 			} else {
 				this.dropdownOpen();
@@ -174,22 +211,10 @@ class gelect {
 		});
 	}
 
-	onHandleOutsideClick() {
-		window.addEventListener('click', (e) => {
-			if (!this.$wrapper.contains(e.target)) {
-				this.dropdownClose();
-			}
-		});
-	}
-
-	init() {
-		if (this.settings.onInit) {
-			this.settings.onInit();
+	onHandleOutsideClick = (e) => {
+		if (this.isDropdownActive && !this.$wrapper.contains(e.target)) {
+			this.dropdownClose();
 		}
-		this.setNodes();
-		this.setOptions();
-		this.defineDefaultStates();
-		this.onHandleTriggerClick();
-		this.onHandleOutsideClick();
 	}
 }
+

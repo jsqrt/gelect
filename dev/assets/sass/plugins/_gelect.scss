@@ -15,6 +15,7 @@ $gelect-selector: 'gelect';
 }
 
 .#{$gelect-selector}__selected {
+	z-index: 2;
 	position: relative;
 
 	display: flex;
@@ -31,8 +32,10 @@ $gelect-selector: 'gelect';
 
 	cursor: pointer;
 
+	transition: box-shadow .2s ease;
+
 	&:focus {
-		border-color: rgba(#000, .6);
+		box-shadow: 0px 0px 6px 2px rgba($black, .2);
 	}
 
 	&::after {
@@ -62,7 +65,7 @@ $gelect-selector: 'gelect';
 	border: var(--g-border);
 	border-top: 0;
 
-	&[data-state='active'] {
+	.#{$gelect-selector}[data-state='active'] & {
 		display: flex;
 		flex-wrap: wrap;
 	}
@@ -105,5 +108,21 @@ $gelect-selector: 'gelect';
 
 	.#{$gelect-selector}__options__item:not([data-selected]):not(:first-child) &{
 		border-top: var(--g-border);
+	}
+}
+
+.#{$gelect-selector}_hidden {
+	position: absolute;
+	pointer-events: none;
+	visibility: hidden;
+}
+
+.test {
+	width: 100px;
+	height: 100px;
+	background-color: gray;
+
+	&:focus {
+		background-color: black;
 	}
 }
