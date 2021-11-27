@@ -1,6 +1,6 @@
 # gelect
 
-A vanilla, lightweight (5kb), configurable plugin for select.
+A vanilla, lightweight (6kb), configurable plugin for select.
 
 
 ## HTML:
