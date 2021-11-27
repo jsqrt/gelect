@@ -111,9 +111,8 @@ $gelect-selector: 'gelect';
 	}
 }
 
-.#{$gelect-selector}_hidden {
+.#{$gelect-selector}__hidden {
 	position: absolute;
-	pointer-events: none;
 	visibility: hidden;
 }
 

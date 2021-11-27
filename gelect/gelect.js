@@ -2,11 +2,12 @@ class Gelect {
 
 	get CLASSNAMES() {
 		this.wrapper = 'gelect';
-		this.hiddenSelect = 'gelect_hidden';
 		this.trigger = this.wrapper + '__selected';
 		this.list = this.wrapper + '__options'
 		this.listItem = this.list + '__item';
 		this.option = this.listItem + '__btn';
+
+		this.hiddenSelect = this.wrapper + '__hidden';
 
 		return this;
 	}
@@ -90,7 +91,7 @@ class Gelect {
 		this.$hiddenOption = document.createElement('option');
 
 		this.$hiddenSelect.append(this.$hiddenOption);
-		this.$root.prepend(this.$hiddenSelect);
+		this.$wrapper.prepend(this.$hiddenSelect);
 	}
 
 	defineOptions() {
