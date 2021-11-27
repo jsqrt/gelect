@@ -27,7 +27,8 @@ If you need add placeholder - add `data-placeholder='Placeholder'` to `<select>`
 const mySelect = new gelect('.your-element');
 
 // to setting:
-const mySelect = new gelect('.your-element', {
+const node = document.querySelector('select';
+const mySelect = new gelect(node, {
   class: string, // default 'gelect' or classList[0] of your select (if defined)
 
   // equals data-attributes:
