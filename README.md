@@ -28,10 +28,10 @@ const select = document.querySelector('.your-element');
 const mySelect = new Gelect(select, {
   class: string, // default 'gelect' or classList[0] of your select (if defined)
 
-  // equals data-attributes:
-  placeholder: string,
-  ariaMessage: string,
-  ariaLabel: string,
+  placeholder: string, // = data-placeholder=''
+  selected: index or node, // = data-selected=''
+  ariaMessage: string, // = data-aria-message=''
+  ariaLabel: string, // = aria-label=''
 
   // callBacks
   onInit: () => {},
