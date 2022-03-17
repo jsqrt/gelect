@@ -1,8 +1,29 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# Mac OS X
+.DS_Store
+._.*
+._*
+
+# Ignore local editor
+.project
+.settings
+.idea
+.vscode
+*.swp
+tags
+nbproject/*
+
+# Windows
+Thumbs.db
+
+npm-debug.log
+
 node_modules/
-/node_modules
-.idea/
-build/
 dist/
+build/
 source/
-test/
-.env
+wp_files/wp-content/themes/mytheme/assets
+wp_files/wp-content/themes/mytheme/js
+wp_files/wp-content/themes/mytheme/styles
+wp_files/wp-content/themes/mytheme/fonts

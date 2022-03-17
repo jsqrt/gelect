@@ -1,0 +1,41 @@
+@mixin st_btn() {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+
+	text-align: center;
+	white-space: nowrap;
+
+	cursor: pointer;
+
+	&:hover, &:focus {
+		text-decoration: none;
+	}
+
+}
+
+//color extends
+%blue_btn_1 {
+	font-weight: 700;
+	color: $white;
+	background-color: $color_link_base;
+	transition: background-color .3s ease;
+
+	@include st_btn();
+
+	&:hover {
+		background-color: darken($color_link_base, 10%);
+	}
+
+}
+
+//size extends
+%btn_size_1 {
+	height: 4rem;
+	padding: 0 1.2rem;
+
+	line-height: 4rem;
+	font-size: 1.6rem;
+
+	border-radius: $gl_radius;
+}

@@ -1,0 +1,184 @@
+mixin head(array)
+	meta(charset='UTF-8')
+	title!= (environment === 'development') ? `${environment} | ${array.title_inner}` : array.title_inner
+	meta(name="viewport", content="width=device-width")
+	meta(name="SKYPE_TOOLBAR", content="SKYPE_TOOLBAR_PARSER_COMPATIBLE")
+	meta(name="apple-mobile-web-app-capable", content="yes")
+	meta(name="format-detection", content="telephone=no")
+
+	link(rel='shortcut icon' href=`${assetsImage}favicon.ico`)
+
+	if environment === 'production'
+		link(rel='icon' sizes='16x16 32x32 64x64' href=`${assetsImage}favicon.ico`)
+		link(rel='icon' type='image/png' sizes='196x196' href='/favicon-192.png')
+		link(rel='icon' type='image/png' sizes='160x160' href='/favicon-160.png')
+		link(rel='icon' type='image/png' sizes='96x96' href='/favicon-96.png')
+		link(rel='icon' type='image/png' sizes='64x64' href='/favicon-64.png')
+		link(rel='icon' type='image/png' sizes='32x32' href='/favicon-32.png')
+		link(rel='icon' type='image/png' sizes='16x16' href='/favicon-16.png')
+		link(rel='apple-touch-icon' href='/favicon-57.png')
+		link(rel='apple-touch-icon' sizes='114x114' href='/favicon-114.png')
+		link(rel='apple-touch-icon' sizes='72x72' href='/favicon-72.png')
+		link(rel='apple-touch-icon' sizes='144x144' href='/favicon-144.png')
+		link(rel='apple-touch-icon' sizes='60x60' href='/favicon-60.png')
+		link(rel='apple-touch-icon' sizes='120x120' href='/favicon-120.png')
+		link(rel='apple-touch-icon' sizes='76x76' href='/favicon-76.png')
+		link(rel='apple-touch-icon' sizes='152x152' href='/favicon-152.png')
+		link(rel='apple-touch-icon' sizes='180x180' href='/favicon-180.png')
+		meta(name='msapplication-TileColor' content='#FFFFFF')
+		meta(name='msapplication-TileImage' content='/favicon-144.png')
+		meta(name='msapplication-config' content='/browserconfig.xml')
+
+//- form element v3
+
+mixin form_input(data)
+	- labelClass = data.label_class || 'form_input__label'
+	- elClass = data.class || 'form_input__element'
+	- blockClass = data.block_class || 'form_input'
+	- fieldClass = data.field_class || 'form_input__field'
+	div(class = blockClass)
+		if data.label
+			label(for=data.id class= labelClass)= data.label
+		div(class = fieldClass)
+			input(type=data.type class = elClass placeholder=data.placeholder value=data.value name=data.name required=data.required)
+			block
+
+mixin form_textarea(data)
+	- labelClass = data.label_class || 'form_textarea__label'
+	- elClass = data.class || 'form_textarea__element'
+	.form_textarea(class = data.mod)
+		if data.label
+			label(for=data.id class= labelClass)= data.label
+		.form_textarea__field
+			textarea(class = elClass placeholder=data.placeholder value=data.value name=data.name required=data.required)
+
+mixin form_select(data)
+	- labelClass = data.label_class || 'form_select__label'
+	- elClass = data.class || 'form_select__element'
+	.form_select(class = data.mod)
+		if data.label
+			label(for=data.id class= labelClass)= data.label
+		.form_select__field
+			select(class = elClass placeholder=data.placeholder name=data.name required=data.required)
+				each item in data.options
+					option(value=item)= item
+
+mixin form_checkbox(data)
+	- labelClass = data.label_class || 'form_checkbox__label'
+	- elClass = data.class || 'form_checkbox__element'
+	.form_checkbox(class = data.mod)
+		label.form_checkbox__block
+			input(class=elClass type="checkbox" name=data.name checked=data.checked || false)
+			span(class = labelClass)!= data.label
+
+mixin form_radio(data)
+	- labelClass = data.label_class || 'form_radio__label'
+	- elClass = data.class || 'form_radio__element'
+	.form_radio(class = data.mod)
+		label.form_radio__block
+			input(class=elClass type="radio" name=data.name checked=data.checked || false)
+			span(class = labelClass)!= data.label
+//- form element v3###
+
+
+//- works
+mixin loop_while(counter)
+	- i=0;
+	while i < counter
+		-i++;
+		block
+
+//- works
+mixin loop_while_sub(counter)
+	- j = 0;
+		while j < counter
+			-j++;
+			block
+
+//- works
+mixin breadcrumbs(array,add_class)
+	- add_class = add_class || ''
+	ul.breadcrumbs_list(class=add_class)
+		each crumb, index in array
+			li.breadcrumbs_item
+				if (index == array.length - 1)
+					a.breadcrumbs_link.current_mod=crumb.text
+				else
+					a.breadcrumbs_link(href= crumb.url)= crumb.text
+
+//- works
+mixin menu(menuArray)
+	- gl_mod = menuArray.gl_mod || ''
+	ul(class=`${menuArray.gl_class}__list `)
+		each item in menuArray.items
+			- url = item.url || '#'
+			li(class= `${menuArray.gl_class}__item ${item.active ? `${menuArray.gl_class}__item--active_mod` : ''} ${gl_mod ? `${menuArray.gl_class}__item--${gl_mod}` : ''}`)
+				a(href= url class= `${menuArray.gl_class}__link ${gl_mod ? `${menuArray.gl_class}__link--${gl_mod}` : ''}`)= item.title
+
+//- works
+mixin social(socialArray)
+	- mod_block = socialArray.mod_block || ''
+	ul.social_list(class= `${mod_block}`)
+		each item in socialArray.items
+			- mod_link = item.mod_link || ''
+			li.social_item
+				a.social_link(href="#" class= `${mod_link}`)
+					+icon(item.name_icon, item.mod_icon)
+
+//- works
+mixin icon(name, mod)
+	- mod = mod || ''
+	svg(class=`icon icon_${name} ${mod}`)
+		use(xlink:href=`${assetsImage}sprite/sprite.svg#${name}`)
+
+mixin pagination(config)
+	- config.mod = config.mod || ''
+	- config.active = config.active || 1
+	.pag_block(class= config.mod)
+		ul.pag_list(class= config.mod)
+			if config.arrows
+				li.pag_item.prev_mod(class= config.mod)
+					a.pag_link.prev_mod(href='#' class= config.mod)
+			- i = 1;
+			while i <= config.pages
+				if i == config.pages - 1
+					li.pag_item(class= config.mod)
+						a.pag_link.dots_mod(class= config.mod) &hellip;
+					li.pag_item(class= config.mod)
+						a.pag_link(href='#' title= i class= config.mod)= i
+				else if i == config.active
+					li.pag_item(class= config.mod)
+						a.pag_link.active_mod(title= i class= config.mod)= i
+				else
+					li.pag_item(class= config.mod)
+						a.pag_link(href='#' title= i class= config.mod)= i
+				-i++
+			if config.arrows
+				li.pag_item.next_mod
+					a.pag_link.next_mod(href='#' class= config.mod)
+
+//- picture
+mixin picture(data)
+	- typeJpeg = data.jpeg ? 'jpeg' : 'jpg'
+	- type = data.png ? 'png' : typeJpeg
+	- is2x = data.is2x ? true : false
+	- media = data.media
+	- imgFit = data.contain ? 'contain_img' : 'cover_img'
+	- imgClass = data.img_class || imgFit
+	- mediaArray = (environment === 'production') ? ['webp', type] : [type];
+	picture(class = data.class)
+		each imgType in mediaArray
+			if media
+				if imgType === 'webp' && environment === 'production'
+					source(media=`(min-width: ${media}px)` srcset=`${assetsImage}${data.img}.${type}.${imgType}${is2x ? `, ${assetsImage}${data.img}@2x.${type}.${imgType} 2x` : ''}` type=`image/${imgType}`)
+					source(media=`(max-width: ${media - 1}px)` srcset=`${assetsImage}${data.img_mob}.${type}.${imgType}${is2x ? `, ${assetsImage}${data.img_mob}@2x.${type}.${imgType} 2x` : ''}` type=`image/${imgType}`)
+				else
+					source(media=`(min-width: ${media}px)` srcset=`${assetsImage}${data.img}.${imgType}${is2x ? `, ${assetsImage}${data.img}@2x.${imgType} 2x` : ''}` type=`image/${imgType}`)
+					source(media=`(max-width: ${media - 1}px)` srcset=`${assetsImage}${data.img_mob}.${imgType}${is2x ? `, ${assetsImage}${data.img_mob}@2x.${imgType} 2x` : ''}` type=`image/${imgType}`)
+			else
+				if imgType === 'webp' && environment === 'production'
+					source(srcset=`${assetsImage}${data.img}.${type}.${imgType}${is2x ? `, ${data.img}@2x.${type}.${imgType} 2x` : ''}` type=`image/${imgType}`)
+				else
+					source(srcset=`${assetsImage}${data.img}.${imgType}${is2x ? `, ${assetsImage}${data.img}@2x.${imgType} 2x` : ''}` type=`image/${imgType}`)
+		img(class= imgClass src=`${assetsImage}${data.img}.${type}` alt="")
+

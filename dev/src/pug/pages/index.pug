@@ -1,0 +1,36 @@
+extends ../layout/_layout
+
+block vars
+	- array = {body_class:'', layout_mod:'', sub_keywords:'', title_inner:'Index'}
+block content_block
+	section.section.demo_mod
+		.demo_in
+			.demo_title Examples
+			.demo_list
+				.demo_item
+					.demo_item__title Simple
+					<select class="your-element" data-placeholder='Placeholder'>
+						<option>Ukraine</option>
+						<option>Poland</option>
+						<option>Germany</option>
+						<option>France</option>
+						<option>England</option>
+					</select>
+				.demo_item
+					.demo_item__title With search
+					<select class="your-element" data-placeholder='Select country' data-search='true' data-search-placeholder='Search...'>
+						<option>Ukraine</option>
+						<option>Poland</option>
+						<option>Germany</option>
+						<option>France</option>
+						<option>England</option>
+					</select>
+				.demo_item
+					.demo_item__title Full accessebility
+					<select class="your-element" aria-label='Select country' data-aria-message='Selected country:'>
+						<option>Ukraine</option>
+						<option>Poland</option>
+						<option data-selected='true'>Germany</option>
+						<option>France</option>
+						<option>England</option>
+					</select>

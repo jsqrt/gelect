@@ -1,29 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8"/>
-    <title>Title of the page</title>
-    <meta name="viewport" content="width=device-width"/>
-    <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE"/>
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <meta name="format-detection" content="telephone=no"/>
-    <link rel="stylesheet" media="all" href="dev/dist/styles/main_global.css"/>
-  </head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="shortcut icon" href="./dev/build/images/favicon.ico">
+    <link rel="icon" sizes="16x16 32x32 64x64" href="images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="196x196" href="/favicon-192.png">
+    <link rel="icon" type="image/png" sizes="160x160" href="/favicon-160.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+    <link rel="apple-touch-icon" href="/favicon-57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/favicon-114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/favicon-72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/favicon-144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/favicon-60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/favicon-120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/favicon-76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/favicon-152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <meta name="msapplication-TileImage" content="/favicon-144.png">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+  <link href="./dev/build/css/app.css" rel="stylesheet"></head>
   <body>
+    <header class="header"></header>
     <div class="wrapper">
       <div class="base">
         <section class="section demo_mod">
-          <select id="select" data-placeholder="Choose language" data-aria-message="Language selected:">
-            <option>English</option>
-            <option data-selected="true">Ukrainian</option>
-            <option>Russian</option>
-            <option>Spanish</option>
-            <option>German</option>
-          </select>
+          <div class="demo_in">
+            <div class="demo_title">Examples</div>
+            <div class="demo_list">
+              <div class="demo_item">
+                <div class="demo_item__title">Simple</div>
+								<select class="your-element" data-placeholder='Placeholder'>
+									<option>Ukraine</option>
+									<option>Poland</option>
+									<option>Germany</option>
+									<option>France</option>
+									<option>England</option>
+								</select>
+              </div>
+              <div class="demo_item">
+                <div class="demo_item__title">With search</div>
+								<select class="your-element" data-placeholder='Select country' data-search='true' data-search-placeholder='Search...'>
+									<option>Ukraine</option>
+									<option>Poland</option>
+									<option>Germany</option>
+									<option>France</option>
+									<option>England</option>
+								</select>
+              </div>
+              <div class="demo_item">
+                <div class="demo_item__title">Full accessebility</div>
+								<select class="your-element" aria-label='Select country' data-aria-message='Selected country:'>
+									<option>Ukraine</option>
+									<option>Poland</option>
+									<option data-selected='true'>Germany</option>
+									<option>France</option>
+									<option>England</option>
+								</select>
+              </div>
+            </div>
+          </div>
         </section>
       </div>
+      <footer class="footer"></footer>
     </div>
-    <script src="dev/dist/js/libs.js"></script>
-    <script src="dev/dist/js/main.js"></script>
-  </body>
+  <script defer src="./dev/build/js/app.js"></script></body>
 </html>

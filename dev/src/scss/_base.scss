@@ -1,0 +1,70 @@
+//------------------------------------------------------------base styles
+:root {
+	--full-screen: calc(var(--vh, 1vh) * 100);
+
+	--height-header: 10rem;
+	--height-footer: 10rem;
+	--gl-indent: 3rem;
+}
+
+html {
+	height: 100%;
+	font: 400 calc(100vw / 1920 * 10)/1.33 $font_1;
+}
+
+body {
+	position: relative;
+
+	display: flex;
+	height: 100%;
+
+	font-size: $font_size_base;
+	color: $color_text_base;
+
+	-webkit-text-size-adjust: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	background: $body_bg;
+
+	@supports (display: grid) {
+		display: block;
+	}
+}
+
+.wrapper {
+	position: relative;
+
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+	height: auto !important;
+
+	overflow-x: hidden;
+}
+
+.base {
+	width: 100%;
+	position: relative;
+	padding: var(--height-header) 0 0;
+
+	flex: 1 0 auto;
+}
+
+a {
+	text-decoration: none;
+	color: $color_link_base;
+
+	&:hover,
+	&:focus {
+		text-decoration: underline;
+	}
+
+}
+
+.elements_list {
+	padding: 3rem;
+}
+
+//------------------------------------------------------------base styles###

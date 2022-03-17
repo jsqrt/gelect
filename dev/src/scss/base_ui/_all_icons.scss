@@ -1,0 +1,11 @@
+//---------------------------------------------ohter_icons
+.icon {
+	display: block;
+
+	fill: currentColor;
+
+	&.icon--size_mod {
+		width: 100%;
+		height: 100%;
+	}
+}
