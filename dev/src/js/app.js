@@ -34,7 +34,7 @@ const readyFunc = () => {
 		const newSelect = new Gelect(select, {
 			// class: string, // default 'gelect' or classList[0] of your select (if defined)
 			// placeholder: string, // = data-placeholder=''
-			// selected: index or node, // = data-selected=''
+			// selected: 2, // = data-selected=''
 			// ariaMessage: string, // = data-aria-message='' - voice alert when option selected, example - Selected country:
 			// ariaLabel: '', // = aria-label=''
 			// search: {

@@ -1,10 +1,10 @@
 # gelect
 
-A vanilla, lightweight (6kb), configurable plugin for select.
+A vanilla, lightweight (10kb), easy-configurable plugin for select.
 
 
 ## HTML:
-**Note:** You can add any additional class or attribute to `<select>` or `<option>`
+**Note:** You can add any additional class or attributes to `<select>` or `<option>`
 
 ```html
 <select class="your-element">
@@ -24,25 +24,30 @@ If you need add placeholder - add `data-placeholder='Placeholder'` to `<select>`
 
 ## JS:
 ```js
-const select = document.querySelector('.your-element');
-const newSelect = new Gelect(select, {
-  class: string, // default 'gelect' or classList[0] of your select (if defined)
+const selects = document.querySelectorAll('.your-element');
+selects.forEach((select) => {
+  const newSelect = new Gelect(select, {
+    // class: string, // default 'gelect' or classList[0] of your select (if defined)
 
-  placeholder: string, // = data-placeholder=''
-  selected: index or node, // = data-selected=''
-  ariaMessage: string, // = data-aria-message=''
-  ariaLabel: string, // = aria-label=''
+    placeholder: string, // or data-placeholder='' to select
+    selected: index or node, // or data-selected='' to option
+    ariaMessage: string, // or data-aria-message='' to select - (voice alert when option selected, example - Selected country:)
+    ariaLabel: '', // or aria-label='' to select
+    search: { // object or boolean -  or data-search='true' to select
+    	placeholder: '', // or data-search-placeholder='Search...' to select
+    },
 
-  // callBacks
-  onInit: () => {},
-  onClick: () => {},
-  onOpen: () => {},
-  onClose: () => {},
-  beforeChange: () => {},
-  afterChange: () => {},
+    // callBacks
+    onInit: (gelect) => {},
+    onClick: (gelect) => {},
+    onOpen: (gelect) => {},
+    onClose: (gelect) => {},
+    beforeChange: (gelect) => {},
+    afterChange: (gelect) => {},
+    onSearch: (event, gelect) => {},
+  });
 });
 ```
-
 
 ## Accessebility:
 For full accessebility - add to `<select>`:
