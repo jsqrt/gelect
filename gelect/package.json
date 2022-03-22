@@ -1,0 +1,19 @@
+{
+  "name": "gelect",
+  "version": "1.0.0",
+  "description": "A vanilla, lightweight (8kb), easy-configurable plugin for select.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lovesossa/gelect.git"
+  },
+  "author": "Heorhii Shavel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lovesossa/gelect/issues"
+  },
+  "homepage": "https://github.com/lovesossa/gelect#readme"
+}

@@ -2,7 +2,8 @@
 import $ from 'jquery';
 import { GLOBAL_VARS } from 'utils/constants';
 import { documentReady, pageLoad } from 'utils';
-import Gelect from './libs/gelect';
+import Gelect from 'gelect';
+import 'gelect/gelect.scss';
 import pageWidgetInit from './dev_vendors/dev_widget';
 // ------------------- imports###
 

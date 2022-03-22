@@ -1,4 +1,3 @@
-
 $gelect-selector: 'your-element';
 
 :root {
@@ -50,7 +49,7 @@ $gelect-selector: 'your-element';
 	}
 
 	&:focus {
-		box-shadow: 0px 0px 6px 2px rgba($black, .2);
+		box-shadow: 0px 0px 6px 2px rgba(#000, .2);
 	}
 
 	&::after {
@@ -113,15 +112,20 @@ $gelect-selector: 'your-element';
 	background-color: #fff;
 	border: var(--g-border);
 	border-top: 0;
+
+	.#{$gelect-selector}_options__item:last-child & {
+		border-bottom-left-radius: .6rem;
+		border-bottom-right-radius: .6rem;
+	}
 }
 
 .#{$gelect-selector}_options__btn {
 	@extend %options_item_button;
 
 	text-align: left;
-	text-overflow: ellipsis; // optional *
-	white-space: nowrap; // optional *
-	overflow: hidden; // optional *
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
 	cursor: pointer;
 
 	&:focus {
@@ -136,10 +140,9 @@ $gelect-selector: 'your-element';
 }
 
 .#{$gelect-selector}_hidden {
-	position: absolute;
-	visibility: hidden;
+	position: absolute; // important
+	visibility: hidden; // important
 }
-
 
 //---------------------------------------------search
 .#{$gelect-selector}_search_wrap {
@@ -151,12 +154,14 @@ $gelect-selector: 'your-element';
 
 	box-shadow: inset 0 0 .2rem rgba(#000, .6);
 
+	// remove browser`s clear button
 	&::-ms-clear {  display: none; width : 0; height: 0; }
 	&::-ms-reveal {  display: none; width : 0; height: 0; }
 	&::-webkit-search-decoration,
 	&::-webkit-search-cancel-button,
 	&::-webkit-search-results-button,
 	&::-webkit-search-results-decoration { display: none; }
+	// remove browser`s clear button#
 }
 
 .#{$gelect-selector}_search_close {
@@ -172,6 +177,7 @@ $gelect-selector: 'your-element';
 	pointer-events: none;
 
 	background: url('https://www.svgrepo.com/show/315851/close.svg') 0 0 / cover no-repeat;
+	border: 0;
 
 	transition: opacity .3s;
 
