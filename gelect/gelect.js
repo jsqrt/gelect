@@ -176,16 +176,20 @@ class Gelect {
 				this.$list.append($listItem);
 				this.$options.push($button);
 
-				if (
-					el.dataset.selected
-					&& !this.settings.$selectedOption
-					&& !this.settings.placeholder
-				) {
+				if (this.settings.selected && (el === this.settings.selected || i === this.settings.selected)) {
 					this.setSelected($button);
-				} else if (
-					i === 0
-				) {
-					this.$firstOption = $button;
+				} else {
+					if (
+						el.dataset.selected
+						&& !this.settings.$selectedOption
+						&& !this.settings.placeholder
+					) {
+						this.setSelected($button);
+					} else if (
+						i === 0
+					) {
+						this.$firstOption = $button;
+					}
 				}
 			});
 		}

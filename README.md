@@ -5,7 +5,7 @@ A vanilla, lightweight (10kb), easy-configurable plugin for select.
 
 ## Instalation:
 1. Run `npm install gelect`
-2. use `import gelect from 'gelect';`
+2. use `import Gelect from 'gelect';`
 2. use `import 'gelect/gelect.scss';`, or copy contents to your scss if you want change styles
 
 
