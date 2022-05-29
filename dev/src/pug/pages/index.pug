@@ -18,19 +18,24 @@ block content_block
 					</select>
 				.demo_item
 					.demo_item__title With search
-					<select class="your-element" data-placeholder='Select country' data-search='true' data-search-placeholder='Search...'>
+					<select class="your-element" required="true" data-placeholder='Select country' data-search='true' data-search-placeholder='Search...'>
 						<option>Ukraine</option>
 						<option>Poland</option>
 						<option>Germany</option>
 						<option>France</option>
 						<option>England</option>
+						<option>England</option>
+						<option>England</option>
+						<option>England</option>
+						<option>England</option>
+						<option>England</option>
 					</select>
 				.demo_item
 					.demo_item__title Full accessebility
-					<select class="your-element" aria-label='Select country' data-aria-message='Selected country:'>
-						<option>Ukraine</option>
-						<option>Poland</option>
-						<option data-selected='true'>Germany</option>
+					<select class="your-element" aria-label='Select country' data-aria-message='Selected country:' name='form select'>
+						<option data-value=1>Ukraine</option>
+						<option value=2>Poland</option>
+						<option data-selected='true' data-value='3'>Germany</option>
 						<option>France</option>
 						<option>England</option>
 					</select>

@@ -1,41 +1,101 @@
 $gelect-selector: 'your-element';
+$g-selectors: (
+	'your-element',
+	'gelect',
+);
+$black: #000;
+$white: #fff;
+$gray: #808080;
 
-:root {
-	--g-height: 4rem;
-	--g-selected-fz: 1.8rem;
-	--g-option-fz: 1.6rem;
-	--g-border: .2rem solid gray;
-	--g-indent: .4rem 3.4rem .4rem 1.6rem;
-	--g-list-indent: .4rem 1.6rem;
+$g-font: 'Arial', sans-serif;
+$max-visible-options: 5;
+$option-height: 3.8rem;
+
+// ---------------------------------------------Base
+
+@each $component in $g-selectors {
+	.#{$component} {
+		position: relative;
+		user-select: none;
+	}
+
+	.#{$component}_selected {
+		z-index: 2;
+		position: relative;
+
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		width: 100%;
+		cursor: pointer;
+	}
+
+	.#{$component}_dropdown {
+		width: 100%;
+
+		.#{$component}[data-state='active'] & {
+			display: block;
+		}
+	}
+
+	.#{$component}_options__btn {
+		@extend %options_item_button;
+
+		text-align: left;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+		cursor: pointer;
+	}
+
+	.#{$component}_options {
+		display: flex;
+		flex-wrap: wrap;
+		width: 100%;
+	}
+
+	.#{$component}_options__item {
+		width: 100%;
+
+		&[data-selected] {
+			order: -1;
+		}
+	}
+
+	.#{$component}_search {
+		border: 0;
+		background-color: $white;
+
+		&::-ms-clear {  display: none; width : 0; height: 0; }
+		&::-ms-reveal {  display: none; width : 0; height: 0; }
+		&::-webkit-search-decoration,
+		&::-webkit-search-cancel-button,
+		&::-webkit-search-results-button,
+		&::-webkit-search-results-decoration { display: none; }
+		-webkit-appearance: none;
+	}
 }
+// ---------------------------------------------Base ###
 
+// ---------------------------------------------Custom - copy to your scss component
 .#{$gelect-selector} {
-	position: relative;
-
 	min-width: 20rem;
-
-	user-select: none;
 }
 
 .#{$gelect-selector}_selected {
-	z-index: 2;
-	position: relative;
-
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
-	height: var(--g-height);
-	padding: var(--g-indent);
-	width: 100%;
+	height: 4rem;
+	padding: .4rem 3.4rem .4rem 1.6rem;
 
-	color: #000;
-	font-size: var(--g-selected-fz);
+	color: $black;
+	font-size: 1.8rem;
+	font-family: $g-font;
 
-	border: var(--g-border);
-	background-color: #fff;
+	border: .2rem solid #{$gray};
+	background-color: $white;
 	border-radius: .6rem;
-
-	cursor: pointer;
 
 	transition: box-shadow .2s ease;
 
@@ -49,7 +109,7 @@ $gelect-selector: 'your-element';
 	}
 
 	&:focus {
-		box-shadow: 0px 0px 6px 2px rgba(#000, .2);
+		box-shadow: 0px 0px 6px 2px rgba($black, .2);
 	}
 
 	&::after {
@@ -75,67 +135,75 @@ $gelect-selector: 'your-element';
 	left: 0;
 
 	display: none;
-	width: 100%;
 
-	.#{$gelect-selector}[data-state='active'] & {
-		display: block;
+	overflow: hidden;
+	border-bottom-left-radius: .6rem;
+	border-bottom-right-radius: .6rem;
+	background-color: $white;
 
+	&::before {
+		z-index: 2;
+		position: absolute;
+		left: 0;
+		top: 0;
+
+		width: 100%;
+		height: 100%;
+
+		pointer-events: none;
+		border: .2rem solid #{$gray};
+		border-top: 0;
 		border-bottom-left-radius: .6rem;
 		border-bottom-right-radius: .6rem;
-		overflow: hidden;
+		content: '';
 	}
 }
 
 .#{$gelect-selector}_options {
-	display: flex;
-	flex-wrap: wrap;
-	width: 100%;
+	overflow-y: auto;
+	max-height: $max-visible-options * $option-height;
+
+	&::-webkit-scrollbar {
+    width: .6rem;
+	}
+	&::-webkit-scrollbar-track {
+    background-color: rgba($black, .2);
+	}
+	&::-webkit-scrollbar-thumb {
+    background-color: rgba($black, .4);
+		border-radius: .3rem;
+	}
 }
 
 .#{$gelect-selector}_options__item {
-	width: 100%;
-
-	&[data-selected] {
-		order: -1;
-	}
 }
 
 %options_item_button {
 	display: block;
 	width: 100%;
-	min-height: var(--g-height);
-	padding: var(--g-list-indent);
+	min-height: $option-height;
+	padding: .4rem 1.6rem;
 
-	font-size: var(--g-option-fz);
-	color: #000;
+	font-size: 1.6rem;
+	color: $black;
+	font-family: $g-font;
 
-	background-color: #fff;
-	border: var(--g-border);
-	border-top: 0;
-
-	.#{$gelect-selector}_options__item:last-child & {
-		border-bottom-left-radius: .6rem;
-		border-bottom-right-radius: .6rem;
-	}
+	background-color: $white;
+	border-top: .2rem solid #{$gray};
 }
 
 .#{$gelect-selector}_options__btn {
 	@extend %options_item_button;
 
-	text-align: left;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	overflow: hidden;
-	cursor: pointer;
-
+	&:hover,
 	&:focus {
-		background-color: gray;
-		color: #fff;
+		background-color: $gray;
+		color: $white;
 	}
 
 	.#{$gelect-selector}_options__item[data-selected] & {
 		background-color: #bdbdbd;
-		color: rgba(black, .5);
+		color: rgba($black, .5);
 	}
 }
 
@@ -152,16 +220,7 @@ $gelect-selector: 'your-element';
 .#{$gelect-selector}_search {
 	@extend %options_item_button;
 
-	box-shadow: inset 0 0 .2rem rgba(#000, .6);
-
-	// remove browser`s clear button
-	&::-ms-clear {  display: none; width : 0; height: 0; }
-	&::-ms-reveal {  display: none; width : 0; height: 0; }
-	&::-webkit-search-decoration,
-	&::-webkit-search-cancel-button,
-	&::-webkit-search-results-button,
-	&::-webkit-search-results-decoration { display: none; }
-	// remove browser`s clear button#
+	box-shadow: inset 0 0 .2rem rgba($black, .6);
 }
 
 .#{$gelect-selector}_search_close {
@@ -178,6 +237,7 @@ $gelect-selector: 'your-element';
 
 	background: url('https://www.svgrepo.com/show/315851/close.svg') 0 0 / cover no-repeat;
 	border: 0;
+	cursor: pointer;
 
 	transition: opacity .3s;
 
@@ -185,9 +245,17 @@ $gelect-selector: 'your-element';
 		opacity: .6;
 		pointer-events: initial;
 
-		&:focus {
+		&:focus,
+		&:hover {
 			opacity: 1;
 		}
 	}
 }
+
 //---------------------------------------------search###
+.#{$gelect-selector}_search {
+	@extend %options_item_button;
+
+	box-shadow: inset 0 0 .2rem rgba($black, .6);
+}
+// ---------------------------------------------Custom###

@@ -56,10 +56,12 @@ class Gelect {
 		}
 	}
 
-	copyAttributes($source, $target) {
+	copyAttributes($source, $target, exception = []) {
 		Object.keys($source.attributes).forEach((key) => {
 			if ($source.attributes[key].nodeName) {
-				$target.setAttribute($source.attributes[key].nodeName, $source.attributes[key].nodeValue);
+				if (!exception.includes($source.attributes[key].nodeName)) {
+					$target.setAttribute($source.attributes[key].nodeName, $source.attributes[key].nodeValue);
+				}
 			}
 		});
 	}
@@ -75,7 +77,7 @@ class Gelect {
 			this.$dropdown.append(this.$list);
 		}
 		if (this.settings.search) {
-			this.$dropdown.prepend(this.separateSeachInit());
+			this.$dropdown.prepend(this.separateSearchInit());
 		}
 
 		this.$wrapper.append(this.$trigger);
@@ -92,7 +94,7 @@ class Gelect {
 		this.$wrapper.dataset.state = 'hidden';
 		this.$wrapper.setAttribute('role', 'listbox');
 
-		this.copyAttributes(this.$defaultSelect, this.$wrapper);
+		this.copyAttributes(this.$defaultSelect, this.$wrapper, ['name', 'required']);
 		if (!this.settings.ariaLabel) {
 			this.$wrapper.setAttribute('aria-label', this.settings.placeholder);
 		} else {
@@ -118,7 +120,7 @@ class Gelect {
 		this.$list.classList.add(this.CLASSNAMES.list);
 	}
 
-	separateSeachInit() {
+	separateSearchInit() {
 		this.$searchField = document.createElement('div');
 		this.$searchField.classList.add(this.CLASSNAMES.searchField);
 
@@ -147,9 +149,15 @@ class Gelect {
 	}
 
 	hiddenSelectInit() {
+		const selectName = this.$defaultSelect.getAttribute('name');
+		const selectRequired = this.$defaultSelect.getAttribute('required');
 		this.$hiddenSelect = document.createElement('select');
 		this.$hiddenOption = document.createElement('option');
+
+		if (selectName) this.$hiddenSelect.setAttribute('name', selectName);
+		if (selectRequired) this.$hiddenSelect.setAttribute('required', selectRequired);
 		this.$hiddenSelect.classList.add(this.CLASSNAMES.hiddenSelect);
+
 		this.$hiddenSelect.append(this.$hiddenOption);
 	}
 
@@ -160,12 +168,18 @@ class Gelect {
 				let $button = document.createElement('button');
 
 				$listItem.classList.add(this.CLASSNAMES.listItem);
-				this.copyAttributes(el, $button);
+
+				// - Button attributes
+				this.copyAttributes(el, $button, ['value']);
 				$button.removeAttribute('data-selected');
 				$button.classList.add(this.CLASSNAMES.option);
 				$button.textContent = el.textContent;
 				$button.setAttribute('role', 'option');
 				$button.setAttribute('aria-selected', 'false');
+
+				const optionAttrValue = el.getAttribute('value') || el.dataset.value;
+				if (optionAttrValue) $button.dataset.value = optionAttrValue;
+				// - Button attributes###
 
 				$button.addEventListener('click', (e) => {
 					this.handleChangeSelected(e);
@@ -217,8 +231,9 @@ class Gelect {
 		this.settings.$selectedOption.setAttribute('tabindex', '-1');
 		this.settings.$selectedOption.setAttribute('aria-selected', 'true');
 
+		const optionAttrValue = $target.dataset.value || this.settings.$selectedOption.textContent;
 		this.$hiddenOption.textContent = this.settings.$selectedOption.textContent;
-		this.$hiddenOption.setAttribute('value', this.settings.$selectedOption.textContent);
+		this.$hiddenOption.setAttribute('value', optionAttrValue);
 
 		this.setValue(this.settings.$selectedOption.textContent);
 		this.setTriggerAria();
