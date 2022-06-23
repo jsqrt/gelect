@@ -74,6 +74,11 @@ $option-height: 3.8rem;
 		&::-webkit-search-results-decoration { display: none; }
 		-webkit-appearance: none;
 	}
+
+	.#{$component}_hidden {
+		position: absolute; // important
+		visibility: hidden; // important
+	}
 }
 // ---------------------------------------------Base ###
 
@@ -205,11 +210,6 @@ $option-height: 3.8rem;
 		background-color: #bdbdbd;
 		color: rgba($black, .5);
 	}
-}
-
-.#{$gelect-selector}_hidden {
-	position: absolute; // important
-	visibility: hidden; // important
 }
 
 //---------------------------------------------search
