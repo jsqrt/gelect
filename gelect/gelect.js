@@ -175,6 +175,7 @@ class Gelect {
 				$button.classList.add(this.CLASSNAMES.option);
 				$button.textContent = el.textContent;
 				$button.setAttribute('role', 'option');
+				$button.setAttribute('type', 'button');
 				$button.setAttribute('aria-selected', 'false');
 
 				const optionAttrValue = el.getAttribute('value') || el.dataset.value;
