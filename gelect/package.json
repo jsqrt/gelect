@@ -1,6 +1,6 @@
 {
   "name": "gelect",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A vanilla, lightweight (8kb), easy-configurable plugin for select.",
   "main": "index.js",
   "scripts": {
