@@ -94,10 +94,10 @@ class Gelect {
 		this.$wrapper.dataset.state = 'hidden';
 		this.$wrapper.setAttribute('role', 'listbox');
 
-		this.copyAttributes(this.$defaultSelect, this.$wrapper, ['name', 'required']);
-		if (!this.settings.ariaLabel) {
+		this.copyAttributes(this.$defaultSelect, this.$wrapper, ['name', 'required', 'id']);
+		if (!this.settings.ariaLabel && this.settings.placeholder) {
 			this.$wrapper.setAttribute('aria-label', this.settings.placeholder);
-		} else {
+		} else if (this.settings.ariaLabel) {
 			this.$wrapper.setAttribute('aria-label', this.settings.ariaLabel);
 		}
 	}
@@ -153,6 +153,9 @@ class Gelect {
 		const selectRequired = this.$defaultSelect.getAttribute('required');
 		this.$hiddenSelect = document.createElement('select');
 		this.$hiddenOption = document.createElement('option');
+
+		if (this.$defaultSelect.id) this.$hiddenSelect.setAttribute('id', this.$defaultSelect.id); //!
+		if (this.$defaultSelect.name) this.$hiddenSelect.setAttribute('name', this.$defaultSelect.name); //!
 
 		if (selectName) this.$hiddenSelect.setAttribute('name', selectName);
 		if (selectRequired) this.$hiddenSelect.setAttribute('required', selectRequired);
