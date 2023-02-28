@@ -63,7 +63,7 @@ For full accessebility - add to `<select>`:
   ```html
   <select aria-label='Select language' data-aria-message='Language selected:'>
     <option>English</option>
-    <option>Russian</option>
+    <option>Ukrainian</option>
   </select>
-  if we select Russian, output: 'Language selected: Russian'
+  if we select Ukrainian, output to screen reader will be: 'Language selected: Ukrainian'
   ```
